@@ -27,13 +27,11 @@ function makeTableFromJson(url) {
     fetch(url)
         .then((response) => response.json())
         .then((data) => {
-            data.results.forEach((element, index) => {
-                let keys = Object.keys(element)
-                if (index < data.results.length - 1) {
-                    headers.innerHTML += /* html */ `
-                    <th>${keys[index]}</th>
-                    `
-                }
+            let keys = Object.keys(data.results[0])
+            keys.forEach((element, index) => {
+                headers.innerHTML += /* html */ `
+                <th>${keys[index]}</th>
+                `
             })
 
             data.results.forEach((element, index) => {
