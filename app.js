@@ -1,19 +1,39 @@
 function app() {
-    printTitles('./data.json')
+    printTitles1('./data.json')
+    printTitles2()
     makeTableFromJson('./data.json')
 }
 
 // Exercise 1
 
-function printTitles(url) {
+
+// Method 1 With fetch .then and 1 function
+
+function printTitles1(url) {
     fetch(url)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data.results.forEach((element) => {
+            data.results.forEach((element) => {
                 console.log(element.title)
-            }))
+            })
+            console.log('--------------------------------------')
         })
         .catch((error) => console.error('Error fetching JSON:', error));
+}
+
+// Method 2 With two functions
+
+async function extractJson(url) {
+    const response = await fetch(url)
+    const data = await response.json()
+    return data
+}
+
+async function printTitles2() {
+    const data = await extractJson('./data.json')
+    data.results.forEach((element) => {
+        console.log(element.title)
+    })
 }
 
 // Exercise 2
